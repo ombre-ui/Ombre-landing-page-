@@ -1,0 +1,34 @@
+/* Ombre design tokens: confirmed palette and type system */
+:root {
+  /* Dark surfaces */
+  --charcoal: #11110f; /* primary background */
+  --charcoal-soft: #181816; /* secondary background */
+  --graphite: #22211e; /* elevated surface */
+  --graphite-line: #302f2b; /* borders and dividers on dark */
+
+  /* Light surface */
+  --ivory: #f2efe8; /* light sections, and text on dark */
+
+  /* Text */
+  --text-on-dark: #f2efe8;
+  --text-on-dark-muted: #a9a59c;
+  --text-on-light: #1b1a17; /* ink */
+  --text-on-light-muted: #6b665d; /* warm gray */
+
+  /* Accent: used sparingly (about 5% of the page) */
+  --champagne: #c8b99a; /* accent on dark */
+  --champagne-hover: #d8cbb2;
+  --bronze: #7a6a48; /* accent on ivory */
+
+  /* Type */
+  --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+
+  /* Motion: slow and soft */
+  --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --duration-reveal: 900ms;
+
+  /* Layout */
+  --content-width: 72rem;
+  --section-space: clamp(5rem, 12vw, 10rem);
+}
