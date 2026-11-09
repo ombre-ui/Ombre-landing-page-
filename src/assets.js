@@ -20,9 +20,11 @@ export const assets = {
     poster: '/hero/ombre_hero_v9_poster.jpg',
   },
 
+  // For the image slots below, `ratio` reserves the slot's shape so the
+  // page never jumps when the image arrives. Change it to match the real
+  // image (width / height).
+
   // 2. Vision + Benefits image
-  // `ratio` reserves the slot's shape so the page never jumps when the
-  // image arrives. Change it to match the real image (width / height).
   vision: {
     ready: false,
     src: '/images/vision.jpg',
@@ -35,6 +37,7 @@ export const assets = {
     ready: false,
     src: '/images/handoff.jpg',
     alt: 'A project continuing from the Startup Validator Mentor to the Business Model Mentor, with the same context carried forward.',
+    ratio: '16 / 9',
   },
 
   // 6. Final CTA image (no baked-in text)

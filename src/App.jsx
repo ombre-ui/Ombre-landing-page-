@@ -9,6 +9,7 @@ import Vision from './components/Vision.jsx'
 import Benefits from './components/Benefits.jsx'
 import Closing from './components/Closing.jsx'
 import Workspace from './components/Workspace.jsx'
+import Handoff from './components/Handoff.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -34,23 +35,19 @@ export default function App() {
       <Workspace />
 
       {/* 4. Mentor Handoff (soft charcoal) */}
-      <section
-        id="handoff"
-        className="section section--charcoal-soft"
-        style={placeholder('80svh')}
-      />
+      <Handoff />
 
       {/* 5. Philosophy: typography only (ivory) */}
       <section
         id="philosophy"
-        className="section section--ivory"
+        className="section section--ivory blend-top blend-from-charcoal-soft"
         style={placeholder('70svh')}
       />
 
       {/* 6. Final CTA: cinematic image with live "Explore Ombre" text */}
       <section
         id="final-cta"
-        className="section section--charcoal"
+        className="section section--charcoal blend-top blend-from-ivory"
         style={placeholder('100svh')}
       />
 
