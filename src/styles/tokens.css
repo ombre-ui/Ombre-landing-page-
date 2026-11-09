@@ -9,16 +9,18 @@
   /* Light surface */
   --ivory: #f2efe8; /* light sections, and text on dark */
 
-  /* Text */
+  /* Text on dark */
   --text-on-dark: #f2efe8;
-  --text-on-dark-muted: #a9a59c;
-  --text-on-light: #1b1a17; /* ink */
-  --text-on-light-muted: #6b665d; /* warm gray */
+  --text-on-dark-muted: #a9a59c; /* small labels only (7.5:1) */
+
+  /* Text on ivory: darkened for stronger contrast */
+  --text-on-light: #1b1a17; /* ink (16:1) */
+  --text-on-light-muted: #4b473f; /* warm gray (8:1) */
 
   /* Accent: used sparingly (about 5% of the page) */
-  --champagne: #c8b99a; /* accent on dark */
+  --champagne: #c8b99a; /* accent on dark (9.8:1) */
   --champagne-hover: #d8cbb2;
-  --bronze: #7a6a48; /* accent on ivory */
+  --bronze: #62523a; /* accent on ivory (6.8:1) */
 
   /* Type */
   --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;

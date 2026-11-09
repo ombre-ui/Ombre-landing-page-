@@ -6,7 +6,10 @@ export default function Vision() {
   const { vision } = assets
 
   return (
-    <section id="vision" className="section section--ivory vision">
+    <section
+      id="vision"
+      className="section section--ivory blend-top blend-from-charcoal vision"
+    >
       <div className="vision__text">
         <Reveal as="h2" className="vision__headline">
           AI should understand the work, not just the prompt.

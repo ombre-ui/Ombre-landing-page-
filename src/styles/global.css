@@ -32,7 +32,8 @@ a {
   text-decoration: none;
 }
 
-/* Section backgrounds: the page rhythm (dark and ivory) */
+/* Section backgrounds: the page rhythm (dark and ivory).
+   --blend-to is the section's own colour, used by the blend below. */
 .section {
   position: relative;
   width: 100%;
@@ -41,16 +42,64 @@ a {
 .section--charcoal {
   background: var(--charcoal);
   color: var(--text-on-dark);
+  --blend-to: var(--charcoal);
 }
 
 .section--charcoal-soft {
   background: var(--charcoal-soft);
   color: var(--text-on-dark);
+  --blend-to: var(--charcoal-soft);
 }
 
 .section--ivory {
   background: var(--ivory);
   color: var(--text-on-light);
+  --blend-to: var(--ivory);
+}
+
+/* Colour of the section above, for a seamless blend */
+.blend-from-charcoal {
+  --blend-from: var(--charcoal);
+}
+
+.blend-from-charcoal-soft {
+  --blend-from: var(--charcoal-soft);
+}
+
+.blend-from-ivory {
+  --blend-from: var(--ivory);
+}
+
+/* Smooth colour transition at the top of a section.
+   The first colour matches the section above, so there is no visible edge.
+   Sections using this keep their top padding at least this tall, so no
+   text ever sits on the mid-tones. */
+.blend-top {
+  --blend-height: clamp(5rem, 12vw, 10rem);
+}
+
+.blend-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--blend-height);
+  background: linear-gradient(
+    to bottom,
+    var(--blend-from) 0%,
+    color-mix(in srgb, var(--blend-to) 10%, var(--blend-from)) 20%,
+    color-mix(in srgb, var(--blend-to) 35%, var(--blend-from)) 40%,
+    color-mix(in srgb, var(--blend-to) 65%, var(--blend-from)) 60%,
+    color-mix(in srgb, var(--blend-to) 90%, var(--blend-from)) 80%,
+    var(--blend-to) 100%
+  );
+  pointer-events: none;
+}
+
+.blend-top > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Respect reduced-motion settings everywhere */

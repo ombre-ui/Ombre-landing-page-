@@ -8,6 +8,7 @@ import Reveal from './components/Reveal.jsx'
 import Vision from './components/Vision.jsx'
 import Benefits from './components/Benefits.jsx'
 import Closing from './components/Closing.jsx'
+import Workspace from './components/Workspace.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -30,11 +31,7 @@ export default function App() {
       <Closing />
 
       {/* 3. Workspace: typography only (charcoal) */}
-      <section
-        id="workspace"
-        className="section section--charcoal"
-        style={placeholder('80svh')}
-      />
+      <Workspace />
 
       {/* 4. Mentor Handoff (soft charcoal) */}
       <section
