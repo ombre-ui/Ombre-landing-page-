@@ -21,15 +21,22 @@ export const assets = {
   },
 
   // 2. Vision + Benefits image
-  vision: { ready: false, src: null, alt: '' },
+  // `ratio` reserves the slot's shape so the page never jumps when the
+  // image arrives. Change it to match the real image (width / height).
+  vision: {
+    ready: false,
+    src: '/images/vision.jpg',
+    alt: '',
+    ratio: '16 / 9',
+  },
 
   // 4. Mentor Handoff image
   handoff: {
     ready: false,
-    src: null,
+    src: '/images/handoff.jpg',
     alt: 'A project continuing from the Startup Validator Mentor to the Business Model Mentor, with the same context carried forward.',
   },
 
   // 6. Final CTA image (no baked-in text)
-  finalCta: { ready: false, src: null, alt: '' },
+  finalCta: { ready: false, src: '/images/final-cta.jpg', alt: '' },
 }

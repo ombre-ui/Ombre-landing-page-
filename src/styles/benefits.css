@@ -1,0 +1,57 @@
+/* Benefits: four quiet numbered items, no cards and no icons. */
+.benefits {
+  --line-on-light: rgba(27, 26, 23, 0.14); /* Ink at low opacity */
+  padding: calc(var(--section-space) * 0.4) 1.5rem
+    calc(var(--section-space) * 0.7);
+}
+
+.benefits__list {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.benefit {
+  padding: 2rem 0 2.5rem;
+  border-top: 1px solid var(--line-on-light);
+}
+
+.benefit__num {
+  display: block;
+  margin-bottom: 1.25rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--bronze);
+}
+
+.benefit__title {
+  margin: 0 0 0.75rem;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--text-on-light);
+}
+
+.benefit__text {
+  max-width: 28rem;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
+
+@media (min-width: 48rem) {
+  .benefits__list {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: clamp(3rem, 7vw, 6rem);
+  }
+
+  .benefit {
+    padding: 2.25rem 0 3rem;
+  }
+}

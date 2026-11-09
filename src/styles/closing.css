@@ -1,0 +1,31 @@
+/* Closing statement: serif, centered, with the CTA beneath. */
+.closing {
+  padding: calc(var(--section-space) * 0.3) 1.5rem var(--section-space);
+  text-align: center;
+}
+
+.closing__statement {
+  max-width: 46rem;
+  margin: 0 auto;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--text-on-light);
+  text-wrap: balance;
+}
+
+.closing__line {
+  display: block;
+}
+
+.closing__line--italic {
+  font-style: italic;
+}
+
+.closing__cta {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(2rem, 4vw, 3rem);
+}

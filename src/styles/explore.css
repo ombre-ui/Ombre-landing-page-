@@ -1,4 +1,4 @@
-/* Slim text CTA under the hero: not a button. */
+/* Slim text CTA: not a button. */
 .explore {
   display: flex;
   justify-content: center;
@@ -54,4 +54,18 @@
 .explore-link:focus-visible {
   outline: 1px solid var(--champagne-hover);
   outline-offset: 6px;
+}
+
+/* On ivory sections: deep bronze, darkening to ink on hover. */
+.explore-link--on-light {
+  color: var(--bronze);
+}
+
+.explore-link--on-light:hover,
+.explore-link--on-light:focus-visible {
+  color: var(--text-on-light);
+}
+
+.explore-link--on-light:focus-visible {
+  outline-color: var(--bronze);
 }

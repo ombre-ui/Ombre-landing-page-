@@ -5,6 +5,9 @@ import './styles/utilities.css'
 import Hero from './components/Hero.jsx'
 import ExploreLink from './components/ExploreLink.jsx'
 import Reveal from './components/Reveal.jsx'
+import Vision from './components/Vision.jsx'
+import Benefits from './components/Benefits.jsx'
+import Closing from './components/Closing.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -22,21 +25,9 @@ export default function App() {
       </section>
 
       {/* 2. Vision, Benefits, Closing statement (ivory) */}
-      <section
-        id="vision"
-        className="section section--ivory"
-        style={placeholder('80svh')}
-      />
-      <section
-        id="benefits"
-        className="section section--ivory"
-        style={placeholder('60svh')}
-      />
-      <section
-        id="closing"
-        className="section section--ivory"
-        style={placeholder('40svh')}
-      />
+      <Vision />
+      <Benefits />
+      <Closing />
 
       {/* 3. Workspace: typography only (charcoal) */}
       <section
