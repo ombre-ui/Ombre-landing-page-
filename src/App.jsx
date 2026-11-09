@@ -10,6 +10,7 @@ import Benefits from './components/Benefits.jsx'
 import Closing from './components/Closing.jsx'
 import Workspace from './components/Workspace.jsx'
 import Handoff from './components/Handoff.jsx'
+import Philosophy from './components/Philosophy.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -38,11 +39,7 @@ export default function App() {
       <Handoff />
 
       {/* 5. Philosophy: typography only (ivory) */}
-      <section
-        id="philosophy"
-        className="section section--ivory blend-top blend-from-charcoal-soft"
-        style={placeholder('70svh')}
-      />
+      <Philosophy />
 
       {/* 6. Final CTA: cinematic image with live "Explore Ombre" text */}
       <section

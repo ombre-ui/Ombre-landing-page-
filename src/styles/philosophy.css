@@ -1,0 +1,59 @@
+/* Philosophy: a long, quiet pause. Serif for the two key lines. */
+.philosophy {
+  padding: calc(var(--section-space) * 1.3) 1.5rem;
+}
+
+.philosophy__inner {
+  max-width: 56rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.philosophy__headline {
+  margin: 0 auto;
+  max-width: 18em;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.75rem, 7.5vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  color: var(--text-on-light);
+  text-wrap: balance;
+}
+
+.philosophy__body {
+  margin-top: clamp(3rem, 7vw, 5.5rem);
+  display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.philosophy__line {
+  margin: 0;
+  font-size: clamp(1.15rem, 2vw, 1.5rem);
+  line-height: 1.7;
+  color: var(--text-on-light-muted);
+}
+
+.philosophy__row {
+  display: block;
+}
+
+.philosophy__rule {
+  display: block;
+  width: 3.5rem;
+  height: 1px;
+  margin: clamp(3.5rem, 8vw, 6rem) auto 0;
+  background: var(--bronze);
+  opacity: 0.5;
+}
+
+.philosophy__closing {
+  margin: clamp(2.5rem, 6vw, 4rem) 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.25rem, 6vw, 4.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  color: var(--text-on-light);
+}
