@@ -11,6 +11,7 @@ import Closing from './components/Closing.jsx'
 import Workspace from './components/Workspace.jsx'
 import Handoff from './components/Handoff.jsx'
 import Philosophy from './components/Philosophy.jsx'
+import FinalCta from './components/FinalCta.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -41,12 +42,8 @@ export default function App() {
       {/* 5. Philosophy: typography only (ivory) */}
       <Philosophy />
 
-      {/* 6. Final CTA: cinematic image with live "Explore Ombre" text */}
-      <section
-        id="final-cta"
-        className="section section--charcoal blend-top blend-from-ivory"
-        style={placeholder('100svh')}
-      />
+      {/* 6. Final CTA: cinematic image with the engraved "Explore Ombre" */}
+      <FinalCta />
 
       {/* 7. Testimonials: omitted until real ones exist */}
       {/* 8. FAQ: decided later */}
