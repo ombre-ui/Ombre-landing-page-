@@ -1,0 +1,15 @@
+/* Gentle fade-in with a small upward drift.
+   Timing comes from the tokens; reduced motion is handled in global.css. */
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity var(--duration-reveal) var(--ease-soft),
+    transform var(--duration-reveal) var(--ease-soft);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}

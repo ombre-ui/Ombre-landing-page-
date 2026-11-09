@@ -1,5 +1,10 @@
-// Page skeleton: section order and background rhythm are locked.
+// Page structure: section order and background rhythm are locked.
 // Content is added section by section; empty sections are placeholders.
+
+import './styles/utilities.css'
+import Hero from './components/Hero.jsx'
+import ExploreLink from './components/ExploreLink.jsx'
+import Reveal from './components/Reveal.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -7,11 +12,14 @@ export default function App() {
   return (
     <main>
       {/* 1. Hero: video only, no nav, no overlay text */}
-      <section
-        id="hero"
-        className="section section--charcoal"
-        style={placeholder('100svh')}
-      />
+      <Hero />
+
+      {/* 1b. Slim text link under the hero */}
+      <section id="explore" className="section section--charcoal explore">
+        <Reveal>
+          <ExploreLink />
+        </Reveal>
+      </section>
 
       {/* 2. Vision, Benefits, Closing statement (ivory) */}
       <section
