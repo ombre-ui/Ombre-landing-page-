@@ -22,15 +22,26 @@ export default function Vision() {
 
       {/* Image slot: empty until the asset is uploaded and marked ready */}
       <Reveal className="vision__media">
-        <div className="vision__frame" style={{ aspectRatio: vision.ratio }}>
-          {vision.ready && vision.src && (
-            <img
-              className="vision__img"
-              src={vision.src}
-              alt={vision.alt}
-              loading="lazy"
-              decoding="async"
-            />
+        <div
+          className="vision__frame"
+          style={{
+            '--ratio': vision.ratio,
+            '--ratio-mobile': vision.ratioMobile || vision.ratio,
+          }}
+        >
+          {vision.ready && (
+            <picture>
+              {vision.srcMobile && (
+                <source media="(max-width: 47.99rem)" srcSet={vision.srcMobile} />
+              )}
+              <img
+                className="vision__img"
+                src={vision.src}
+                alt={vision.alt}
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           )}
         </div>
       </Reveal>

@@ -36,7 +36,13 @@ export default function Handoff() {
           Mentor
         </Reveal>
 
-        <Reveal as="p" delay={150} className="handoff__line">
+        {/* The same line is baked into the image. Once the image is on, this
+            text is hidden visually (but kept for screen readers and search). */}
+        <Reveal
+          as="p"
+          delay={150}
+          className={handoff.ready ? 'sr-only' : 'handoff__line'}
+        >
           Your work keeps moving. So does your context.
         </Reveal>
       </div>
