@@ -32,6 +32,18 @@ const questions = [
   },
 ]
 
+// Lets search engines show these questions as rich results. It is built
+// from the same list as the page, so the two can never disagree.
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: questions.map(({ q, a }) => ({
+    '@type': 'Question',
+    name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+}
+
 // Each question is a native expandable element: keyboard and screen reader
 // friendly, no extra scripting. In current browsers, opening one closes the
 // others (they share the name "faq").
@@ -42,6 +54,11 @@ export default function Faq() {
       className="section section--charcoal faq"
       aria-labelledby="faq-heading"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+
       <div className="faq__inner">
         <Reveal as="h2" id="faq-heading" className="faq__heading">
           Common questions

@@ -1,0 +1,130 @@
+/* Privacy and Terms pages: calm, readable, on ivory. */
+.legal {
+  min-height: 100vh;
+  padding: 0 1.5rem;
+  background: var(--ivory);
+  color: var(--text-on-light);
+}
+
+.legal__header,
+.legal__main,
+.legal__footer {
+  max-width: 46rem;
+  margin: 0 auto;
+}
+
+.legal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 2rem 0;
+}
+
+.legal__wordmark {
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-on-light);
+}
+
+.legal__back {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-on-light-muted);
+  transition: color 300ms var(--ease-soft);
+}
+
+.legal__back:hover {
+  color: var(--text-on-light);
+}
+
+.legal__main {
+  padding: clamp(2rem, 6vw, 4rem) 0 clamp(3rem, 8vw, 6rem);
+}
+
+.legal__title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2.5rem, 7vw, 4.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.legal__updated {
+  margin: 1rem 0 0;
+  font-size: 0.9rem;
+  color: var(--text-on-light-muted);
+}
+
+.legal__intro {
+  margin: 2rem 0 0;
+  font-size: 1.1rem;
+  line-height: 1.75;
+}
+
+.legal__section {
+  margin-top: 2.75rem;
+}
+
+.legal__section h2 {
+  margin: 0 0 0.9rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+.legal__num {
+  color: var(--bronze);
+}
+
+.legal__section p,
+.legal__section li {
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.legal__section p {
+  margin: 0 0 1rem;
+}
+
+.legal__section ul {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.legal__section li {
+  margin-bottom: 0.6rem;
+}
+
+.legal__section a,
+.legal__intro a {
+  color: var(--bronze);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal__footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.75rem 0 2.5rem;
+  border-top: 1px solid rgba(27, 26, 23, 0.14);
+  font-size: 0.9rem;
+  color: var(--text-on-light-muted);
+}
+
+.legal__footer p {
+  margin: 0;
+}
+
+.legal__footer a {
+  color: var(--text-on-light-muted);
+}
+
+.legal__footer a:hover {
+  color: var(--text-on-light);
+}

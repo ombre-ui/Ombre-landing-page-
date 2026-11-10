@@ -5,7 +5,7 @@ import '../styles/glass.css'
 import '../styles/footer.css'
 
 // Only links that go somewhere real are listed. Mentors and Projects have
-// no pages of their own, and Privacy and Terms do not exist yet.
+// no pages of their own.
 const groups = [
   {
     title: 'Product',
@@ -19,6 +19,13 @@ const groups = [
     links: [
       { label: 'Sign in', href: SIGNIN_URL },
       { label: 'Get started', href: SIGNUP_URL },
+    ],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { label: 'Privacy', href: '/privacy' },
+      { label: 'Terms', href: '/terms' },
     ],
   },
   {
