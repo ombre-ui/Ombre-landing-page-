@@ -1,5 +1,4 @@
 // Page structure: section order and background rhythm are locked.
-// Content is added section by section; empty sections are placeholders.
 
 import './styles/utilities.css'
 import Hero from './components/Hero.jsx'
@@ -13,8 +12,7 @@ import Handoff from './components/Handoff.jsx'
 import Philosophy from './components/Philosophy.jsx'
 import FinalCta from './components/FinalCta.jsx'
 import Faq from './components/Faq.jsx'
-
-const placeholder = (minHeight) => ({ minHeight })
+import Footer from './components/Footer.jsx'
 
 export default function App() {
   return (
@@ -49,12 +47,8 @@ export default function App() {
       {/* 7. FAQ */}
       <Faq />
 
-      {/* 8. Footer */}
-      <footer
-        id="footer"
-        className="section section--charcoal"
-        style={placeholder('30svh')}
-      />
+      {/* 8. Footer: liquid glass panel */}
+      <Footer />
     </main>
   )
 }

@@ -1,0 +1,158 @@
+/* Footer: a glass panel floating over a darkened, blurred glow.
+   The glow is the lamp area of the final CTA image, so the footer feels
+   like a continuation of that scene. Without the image it falls back to a
+   soft warm gradient. */
+.footer {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(4rem, 10vw, 8rem) 1.25rem 1.25rem;
+  background: var(--charcoal);
+  color: var(--text-on-dark);
+}
+
+.footer__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(
+    60% 70% at 28% 70%,
+    rgba(200, 185, 154, 0.14),
+    rgba(200, 185, 154, 0) 70%
+  );
+  pointer-events: none;
+}
+
+.footer__bg::before {
+  content: '';
+  position: absolute;
+  inset: -10%;
+  background-image: var(--glow-image, none);
+  background-size: cover;
+  background-position: 28% 62%;
+  filter: blur(22px) brightness(0.5) saturate(0.9);
+}
+
+/* Blend in from the FAQ above and settle darker towards the bottom */
+.footer__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    var(--charcoal) 0%,
+    rgba(17, 17, 15, 0.35) 40%,
+    rgba(17, 17, 15, 0.6) 100%
+  );
+}
+
+.footer__panel {
+  position: relative;
+  z-index: 1;
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: clamp(1.75rem, 4vw, 3rem);
+  border-radius: 1.75rem;
+}
+
+.footer__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+}
+
+.footer__wordmark {
+  display: inline-block;
+  font-weight: 500;
+  font-size: 1.9rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+}
+
+.footer__tagline {
+  max-width: 20rem;
+  margin: 1rem 0 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.35rem;
+  line-height: 1.35;
+  color: var(--text-on-dark);
+}
+
+.footer__links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: 2rem;
+}
+
+.footer__heading {
+  margin: 0 0 1.1rem;
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--champagne);
+}
+
+.footer__list {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer__link {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--text-on-dark);
+  overflow-wrap: anywhere;
+  transition: color 400ms var(--ease-soft);
+}
+
+.footer__link:hover,
+.footer__link:focus-visible {
+  color: var(--champagne-hover);
+}
+
+.footer__link:focus-visible,
+.footer__wordmark:focus-visible,
+.footer__top:focus-visible {
+  outline: 1px solid var(--champagne-hover);
+  outline-offset: 4px;
+}
+
+.footer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(242, 239, 232, 0.14);
+  font-size: 0.85rem;
+  color: var(--text-on-dark-muted);
+}
+
+.footer__bar p {
+  margin: 0;
+}
+
+.footer__top {
+  color: var(--text-on-dark-muted);
+  transition: color 400ms var(--ease-soft);
+}
+
+.footer__top:hover,
+.footer__top:focus-visible {
+  color: var(--champagne-hover);
+}
+
+@media (min-width: 48rem) {
+  .footer__grid {
+    grid-template-columns: 5fr 7fr;
+    gap: 3rem;
+  }
+}
