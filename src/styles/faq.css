@@ -1,0 +1,126 @@
+/* FAQ: quiet rows on charcoal, one open at a time. */
+.faq {
+  padding: var(--section-space) 1.5rem;
+}
+
+.faq__inner {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+
+.faq__heading {
+  margin: 0;
+  font-weight: 500;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--text-on-dark);
+}
+
+.faq__list {
+  border-bottom: 1px solid var(--graphite-line);
+}
+
+.faq__item {
+  border-top: 1px solid var(--graphite-line);
+}
+
+.faq__question {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding: 1.6rem 0;
+  list-style: none;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: clamp(1.1rem, 1.8vw, 1.35rem);
+  line-height: 1.4;
+  color: var(--text-on-dark);
+  transition: color 400ms var(--ease-soft);
+}
+
+.faq__question::-webkit-details-marker {
+  display: none;
+}
+
+.faq__question:hover {
+  color: var(--champagne-hover);
+}
+
+.faq__question:focus-visible {
+  outline: 1px solid var(--champagne-hover);
+  outline-offset: 4px;
+}
+
+/* Plus that turns into a minus when open */
+.faq__icon {
+  position: relative;
+  flex: none;
+  width: 1rem;
+  height: 1rem;
+}
+
+.faq__icon::before,
+.faq__icon::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: var(--champagne);
+  transform: translateY(-50%);
+  transition: transform 500ms var(--ease-soft);
+}
+
+.faq__icon::after {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.faq__item[open] .faq__icon::after {
+  transform: translateY(-50%) rotate(0deg);
+}
+
+.faq__answer {
+  max-width: 40rem;
+  padding: 0 0 1.9rem;
+}
+
+.faq__answer p {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.5vw, 1.15rem);
+  line-height: 1.75;
+  color: var(--text-on-dark);
+}
+
+.faq__item[open] .faq__answer {
+  animation: faq-in 600ms var(--ease-soft);
+}
+
+@keyframes faq-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Desktop: heading on the left, questions on the right */
+@media (min-width: 60rem) {
+  .faq__inner {
+    grid-template-columns: minmax(12rem, 20rem) 1fr;
+    gap: 5rem;
+  }
+
+  .faq__heading {
+    position: sticky;
+    top: 3rem;
+    align-self: start;
+  }
+}

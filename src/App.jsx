@@ -12,6 +12,7 @@ import Workspace from './components/Workspace.jsx'
 import Handoff from './components/Handoff.jsx'
 import Philosophy from './components/Philosophy.jsx'
 import FinalCta from './components/FinalCta.jsx'
+import Faq from './components/Faq.jsx'
 
 const placeholder = (minHeight) => ({ minHeight })
 
@@ -45,10 +46,10 @@ export default function App() {
       {/* 6. Final CTA: cinematic image with the engraved "Explore Ombre" */}
       <FinalCta />
 
-      {/* 7. Testimonials: omitted until real ones exist */}
-      {/* 8. FAQ: decided later */}
+      {/* 7. FAQ */}
+      <Faq />
 
-      {/* 9. Footer */}
+      {/* 8. Footer */}
       <footer
         id="footer"
         className="section section--charcoal"
