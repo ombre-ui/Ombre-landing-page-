@@ -1,4 +1,4 @@
-/* Hero: video only. No nav, no overlay text.
+/* Hero: video only, with small playback controls. No nav, no overlay text.
 
    The hero sits on pure black because the video's own edges are black
    (#000). That black exists only behind the video and is not a palette
@@ -25,8 +25,7 @@
   inset: 0;
 }
 
-.hero__video,
-.hero__still {
+.hero__video {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -49,4 +48,123 @@
 
 .hero--band .hero__fade {
   height: 30%;
+}
+
+/* Playback controls: a small glass pill, bottom right. */
+.hero__controls {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding: 0.3rem;
+  border-radius: 999px;
+  background: rgba(17, 17, 15, 0.38);
+  opacity: 0.9;
+  transition: opacity 400ms var(--ease-soft);
+}
+
+.hero__controls:hover,
+.hero__controls:focus-within {
+  opacity: 1;
+}
+
+.hero--band .hero__controls {
+  right: 0.6rem;
+  bottom: 0.6rem;
+}
+
+.hero__btn {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text-on-dark);
+  cursor: pointer;
+  transition:
+    color 300ms var(--ease-soft),
+    background 300ms var(--ease-soft);
+}
+
+.hero__btn:hover {
+  color: var(--champagne-hover);
+  background: rgba(242, 239, 232, 0.08);
+}
+
+.hero__btn:focus-visible {
+  outline: 1px solid var(--champagne-hover);
+  outline-offset: 2px;
+}
+
+.hero__btn svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.hero__btn svg .fill {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* Volume slider (desktop; phones use their own volume buttons) */
+.hero__volume {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 5.5rem;
+  height: 1.5rem;
+  margin: 0 0.7rem 0 0.1rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.hero__volume::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(242, 239, 232, 0.35);
+}
+
+.hero__volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-top: -0.4rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--champagne);
+}
+
+.hero__volume::-moz-range-track {
+  height: 2px;
+  border-radius: 1px;
+  background: rgba(242, 239, 232, 0.35);
+}
+
+.hero__volume::-moz-range-thumb {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 0;
+  border-radius: 50%;
+  background: var(--champagne);
+}
+
+.hero__volume:focus-visible {
+  outline: 1px solid var(--champagne-hover);
+  outline-offset: 3px;
+}
+
+@media (hover: none) {
+  .hero__volume {
+    display: none;
+  }
 }
