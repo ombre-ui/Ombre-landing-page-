@@ -12,6 +12,14 @@
   overflow: hidden;
 }
 
+/* Phones without a phone-shaped video: show the 16:9 video as a band,
+   exactly its own shape, instead of cropping most of it away. */
+.hero--band {
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 16 / 9;
+}
+
 .hero__media {
   position: absolute;
   inset: 0;
@@ -37,4 +45,8 @@
     var(--charcoal)
   );
   pointer-events: none;
+}
+
+.hero--band .hero__fade {
+  height: 30%;
 }
