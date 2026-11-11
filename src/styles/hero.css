@@ -5,6 +5,9 @@
    (#000). That black exists only behind the video and is not a palette
    color. The bottom edge fades into the page charcoal so there is no seam. */
 .hero {
+  /* A tiny strip of black above the video, as breathing space */
+  --hero-gap: clamp(0.4rem, 1vw, 0.75rem);
+
   position: relative;
   height: 100vh;
   height: 100svh;
@@ -18,12 +21,18 @@
 .hero--band {
   height: auto;
   min-height: 0;
-  aspect-ratio: 16 / 9;
+  padding-top: var(--hero-gap);
 }
 
 .hero__media {
   position: absolute;
-  inset: 0;
+  inset: var(--hero-gap) 0 0 0;
+}
+
+.hero--band .hero__media {
+  position: relative;
+  inset: auto;
+  aspect-ratio: 16 / 9;
 }
 
 .hero__video {
@@ -53,18 +62,21 @@
   min-height: 1.25rem;
 }
 
-/* The two corner buttons: small, quiet, always there */
+/* The two corner buttons: small, quiet, always there.
+   They look small, but an invisible larger area around each one keeps
+   them easy to tap. */
 .hero__corner {
   position: absolute;
-  bottom: clamp(0.75rem, 2.5vw, 1.75rem);
+  bottom: clamp(0.6rem, 2vw, 1.25rem);
   z-index: 2;
   display: grid;
   place-items: center;
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 1.4rem;
+  height: 1.4rem;
   padding: 0;
   border: 0;
   border-radius: 50%;
+  overflow: visible;
   background: rgba(17, 17, 15, 0.42);
   color: var(--text-on-dark);
   opacity: 0.8;
@@ -75,18 +87,25 @@
     transform 400ms var(--ease-soft);
 }
 
+.hero__corner::after {
+  content: '';
+  position: absolute;
+  inset: -0.7rem;
+  border-radius: 50%;
+}
+
 .hero__corner--left {
-  left: clamp(0.75rem, 2.5vw, 1.75rem);
+  left: clamp(0.6rem, 2vw, 1.25rem);
 }
 
 .hero__corner--right {
-  right: clamp(0.75rem, 2.5vw, 1.75rem);
+  right: clamp(0.6rem, 2vw, 1.25rem);
 }
 
 .hero__corner:hover {
   color: var(--champagne-hover);
   opacity: 1;
-  transform: scale(1.06);
+  transform: scale(1.1);
 }
 
 .hero__corner:focus-visible {
@@ -96,11 +115,11 @@
 }
 
 .hero__corner svg {
-  width: 1.15rem;
-  height: 1.15rem;
+  width: 0.7rem;
+  height: 0.7rem;
   fill: none;
   stroke: currentColor;
-  stroke-width: 1.6;
+  stroke-width: 2.2;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -111,13 +130,13 @@
 }
 
 .hero--band .hero__corner {
-  bottom: 0.6rem;
+  bottom: 0.5rem;
 }
 
 .hero--band .hero__corner--left {
-  left: 0.6rem;
+  left: 0.5rem;
 }
 
 .hero--band .hero__corner--right {
-  right: 0.6rem;
+  right: 0.5rem;
 }
