@@ -1,4 +1,4 @@
-/* Hero: the video, with a YouTube-style control bar.
+/* Hero: the video, with two small corner buttons (stop/play and sound).
    No nav, no overlay text.
 
    The hero sits on pure black because the video's own edges are black
@@ -47,228 +47,17 @@
   pointer-events: none;
 }
 
+/* On the band the blend stays thin, so it never dims the picture itself */
 .hero--band .hero__fade {
-  height: 30%;
+  height: 8%;
+  min-height: 1.25rem;
 }
 
-/* Click or tap the picture to play or pause */
-.hero__surface {
+/* The two corner buttons: small, quiet, always there */
+.hero__corner {
   position: absolute;
-  inset: 0;
-  z-index: 1;
-  cursor: pointer;
-}
-
-.hero--idle .hero__surface {
-  cursor: none;
-}
-
-/* Large play button when paused, ended or blocked */
-.hero__center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  bottom: clamp(0.75rem, 2.5vw, 1.75rem);
   z-index: 2;
-  display: grid;
-  place-items: center;
-  width: 4.75rem;
-  height: 4.75rem;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: rgba(17, 17, 15, 0.4);
-  color: var(--text-on-dark);
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-  transition:
-    transform 400ms var(--ease-soft),
-    color 300ms var(--ease-soft);
-}
-
-.hero__center:hover {
-  color: var(--champagne-hover);
-  transform: translate(-50%, -50%) scale(1.06);
-}
-
-.hero__center:focus-visible {
-  outline: 1px solid var(--champagne-hover);
-  outline-offset: 4px;
-}
-
-.hero__center svg {
-  width: 1.9rem;
-  height: 1.9rem;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.hero__center svg .fill {
-  fill: currentColor;
-  stroke: none;
-}
-
-.hero--band .hero__center {
-  width: 3.5rem;
-  height: 3.5rem;
-}
-
-/* The control bar: progress line on top, buttons beneath.
-   It fades away while the video plays, and returns on movement, tap or
-   keyboard focus. */
-.hero__ui {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 3;
-  padding: 0 clamp(1rem, 2.5vw, 1.75rem) clamp(0.5rem, 1.5vw, 1rem);
-  opacity: 0;
-  transform: translateY(6px);
-  pointer-events: none;
-  transition:
-    opacity 350ms var(--ease-soft),
-    transform 350ms var(--ease-soft);
-}
-
-.hero--ui .hero__ui,
-.hero__ui:focus-within {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-/* A soft dark band behind the bar so the icons always read clearly */
-.hero__ui::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: -1;
-  height: calc(100% + 3.5rem);
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.72),
-    rgba(0, 0, 0, 0)
-  );
-  pointer-events: none;
-}
-
-/* Progress: a thin line that thickens on hover, with a champagne fill */
-.hero__progress {
-  --p: 0;
-
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: 20px;
-}
-
-.hero__track,
-.hero__played {
-  position: absolute;
-  left: 0;
-  height: 3px;
-  border-radius: 2px;
-  transition: height 200ms var(--ease-soft);
-}
-
-.hero__track {
-  right: 0;
-  background: rgba(242, 239, 232, 0.28);
-}
-
-.hero__played {
-  width: 100%;
-  background: var(--champagne);
-  transform: scaleX(var(--p));
-  transform-origin: left;
-  transition:
-    transform 250ms linear,
-    height 200ms var(--ease-soft);
-}
-
-.hero__progress:hover .hero__track,
-.hero__progress:hover .hero__played,
-.hero__progress:focus-within .hero__track,
-.hero__progress:focus-within .hero__played {
-  height: 5px;
-}
-
-.hero__seek {
-  -webkit-appearance: none;
-  appearance: none;
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.hero__seek::-webkit-slider-runnable-track {
-  height: 100%;
-  background: transparent;
-}
-
-.hero__seek::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 12px;
-  height: 12px;
-  margin-top: 4px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--champagne);
-  transform: scale(0);
-  transition: transform 200ms var(--ease-soft);
-}
-
-.hero__seek::-moz-range-track {
-  height: 100%;
-  background: transparent;
-}
-
-.hero__seek::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border: 0;
-  border-radius: 50%;
-  background: var(--champagne);
-  transform: scale(0);
-  transition: transform 200ms var(--ease-soft);
-}
-
-.hero__progress:hover .hero__seek::-webkit-slider-thumb,
-.hero__seek:focus-visible::-webkit-slider-thumb {
-  transform: scale(1);
-}
-
-.hero__progress:hover .hero__seek::-moz-range-thumb,
-.hero__seek:focus-visible::-moz-range-thumb {
-  transform: scale(1);
-}
-
-.hero__seek:focus-visible {
-  outline: 1px solid var(--champagne-hover);
-  outline-offset: 2px;
-}
-
-/* Button row */
-.hero__row {
-  display: flex;
-  align-items: center;
-  gap: 0.15rem;
-}
-
-.hero__spacer {
-  flex: 1;
-}
-
-.hero__btn {
   display: grid;
   place-items: center;
   width: 2.75rem;
@@ -276,27 +65,39 @@
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: transparent;
+  background: rgba(17, 17, 15, 0.42);
   color: var(--text-on-dark);
+  opacity: 0.8;
   cursor: pointer;
   transition:
+    opacity 300ms var(--ease-soft),
     color 300ms var(--ease-soft),
-    background 300ms var(--ease-soft);
+    transform 400ms var(--ease-soft);
 }
 
-.hero__btn:hover {
+.hero__corner--left {
+  left: clamp(0.75rem, 2.5vw, 1.75rem);
+}
+
+.hero__corner--right {
+  right: clamp(0.75rem, 2.5vw, 1.75rem);
+}
+
+.hero__corner:hover {
   color: var(--champagne-hover);
-  background: rgba(242, 239, 232, 0.08);
+  opacity: 1;
+  transform: scale(1.06);
 }
 
-.hero__btn:focus-visible {
+.hero__corner:focus-visible {
   outline: 1px solid var(--champagne-hover);
-  outline-offset: 2px;
+  outline-offset: 3px;
+  opacity: 1;
 }
 
-.hero__btn svg {
-  width: 1.4rem;
-  height: 1.4rem;
+.hero__corner svg {
+  width: 1.15rem;
+  height: 1.15rem;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
@@ -304,122 +105,19 @@
   stroke-linejoin: round;
 }
 
-.hero__btn svg .fill {
+.hero__corner svg .fill {
   fill: currentColor;
   stroke: none;
 }
 
-/* Sound button with a volume slider that slides out on hover or focus */
-.hero__volume-group {
-  display: flex;
-  align-items: center;
+.hero--band .hero__corner {
+  bottom: 0.6rem;
 }
 
-.hero__volume {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 0;
-  height: 1.5rem;
-  margin: 0;
-  background: transparent;
-  opacity: 0;
-  cursor: pointer;
-  transition:
-    width 300ms var(--ease-soft),
-    margin 300ms var(--ease-soft),
-    opacity 300ms var(--ease-soft);
+.hero--band .hero__corner--left {
+  left: 0.6rem;
 }
 
-.hero__volume-group:hover .hero__volume,
-.hero__volume-group:focus-within .hero__volume {
-  width: 5.5rem;
-  margin: 0 0.7rem 0 0.1rem;
-  opacity: 1;
-}
-
-.hero__volume::-webkit-slider-runnable-track {
-  height: 2px;
-  border-radius: 1px;
-  background: rgba(242, 239, 232, 0.35);
-}
-
-.hero__volume::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  width: 0.8rem;
-  height: 0.8rem;
-  margin-top: -0.4rem;
-  border: 0;
-  border-radius: 50%;
-  background: var(--champagne);
-}
-
-.hero__volume::-moz-range-track {
-  height: 2px;
-  border-radius: 1px;
-  background: rgba(242, 239, 232, 0.35);
-}
-
-.hero__volume::-moz-range-thumb {
-  width: 0.8rem;
-  height: 0.8rem;
-  border: 0;
-  border-radius: 50%;
-  background: var(--champagne);
-}
-
-.hero__volume:focus-visible {
-  outline: 1px solid var(--champagne-hover);
-  outline-offset: 3px;
-}
-
-.hero__time {
-  margin-left: 0.5rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  color: var(--text-on-dark);
-}
-
-/* Touch screens: no volume slider (phones use their own volume buttons),
-   and the seek thumb is always visible. */
-@media (hover: none) {
-  .hero__volume {
-    display: none;
-  }
-
-  .hero__seek::-webkit-slider-thumb {
-    transform: scale(1);
-  }
-
-  .hero__seek::-moz-range-thumb {
-    transform: scale(1);
-  }
-}
-
-@media (max-width: 30rem) {
-  .hero__time {
-    display: none;
-  }
-}
-
-/* Fullscreen: the whole hero, showing the whole picture */
-.hero:fullscreen {
-  height: 100%;
-  min-height: 0;
-  aspect-ratio: auto;
-}
-
-.hero:fullscreen .hero__video {
-  object-fit: contain;
-}
-
-.hero:-webkit-full-screen {
-  height: 100%;
-  min-height: 0;
-  aspect-ratio: auto;
-}
-
-.hero:-webkit-full-screen .hero__video {
-  object-fit: contain;
+.hero--band .hero__corner--right {
+  right: 0.6rem;
 }

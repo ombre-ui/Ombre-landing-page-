@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { assets } from '../assets.js'
 import '../styles/glass.css'
 import '../styles/hero.css'
@@ -17,14 +17,6 @@ function useMediaQuery(query) {
   }, [query])
 
   return matches
-}
-
-// m:ss, for the time readout
-function formatTime(seconds) {
-  const s = Number.isFinite(seconds) && seconds > 0 ? seconds : 0
-  const m = Math.floor(s / 60)
-  const rest = Math.floor(s % 60)
-  return `${m}:${String(rest).padStart(2, '0')}`
 }
 
 // Small line icons, drawn inline so nothing extra has to load.
@@ -57,18 +49,6 @@ function Icon({ name }) {
           <path d="M18.5 5.5a9 9 0 0 1 0 13" />
         </svg>
       )
-    case 'fullscreen':
-      return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
-        </svg>
-      )
-    case 'exit-fullscreen':
-      return (
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5" />
-        </svg>
-      )
     default:
       return (
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -87,19 +67,10 @@ export default function Hero() {
   const sectionRef = useRef(null)
   const videoRef = useRef(null)
   const autoPausedRef = useRef(false)
-  const idleTimerRef = useRef(null)
-  const pointerTypeRef = useRef('mouse')
 
   const [playing, setPlaying] = useState(false)
-  const [stopped, setStopped] = useState(false) // paused, ended or blocked
   const [ended, setEnded] = useState(false)
   const [muted, setMuted] = useState(true)
-  const [volume, setVolume] = useState(1)
-  const [time, setTime] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const [uiVisible, setUiVisible] = useState(true)
-  const [fullscreen, setFullscreen] = useState(false)
-  const [canFullscreen, setCanFullscreen] = useState(false)
 
   // Phones use the 4:5 file if there is one; otherwise the desktop MP4.
   const mobileSrc = hero.mobileMp4 || hero.desktopMp4
@@ -109,26 +80,6 @@ export default function Hero() {
   const band = portrait && !hero.mobileMp4
 
   const videoKey = portrait && hero.mobileMp4 ? 'mobile' : 'desktop'
-
-  // Controls fade away a moment after the video starts playing, and come
-  // back on any movement, tap or keyboard focus. While paused they stay.
-  const showUi = useCallback(() => {
-    setUiVisible(true)
-    clearTimeout(idleTimerRef.current)
-    idleTimerRef.current = setTimeout(() => setUiVisible(false), 2600)
-  }, [])
-
-  useEffect(() => {
-    if (playing) {
-      showUi()
-    } else {
-      clearTimeout(idleTimerRef.current)
-      setUiVisible(true)
-    }
-    return () => clearTimeout(idleTimerRef.current)
-  }, [playing, showUi])
-
-  const controlsShown = uiVisible || !playing
 
   // Start playing as soon as the page loads. Browsers only allow autoplay
   // when the video is muted, so it starts muted; one tap on the sound
@@ -153,18 +104,12 @@ export default function Hero() {
 
     if (reducedMotion) {
       video.pause()
-      setStopped(true)
       whenReady(parkOnFrame)
       return
     }
 
     const attempt = video.play()
-    if (attempt && attempt.catch) {
-      attempt.catch(() => {
-        setStopped(true)
-        whenReady(parkOnFrame)
-      })
-    }
+    if (attempt && attempt.catch) attempt.catch(() => whenReady(parkOnFrame))
   }, [hero.ready, videoKey, reducedMotion, hero.poster, hero.holdFrameAt])
 
   // Pause when the hero scrolls out of view, so sound never plays unseen;
@@ -194,28 +139,6 @@ export default function Hero() {
     return () => observer.disconnect()
   }, [])
 
-  // Fullscreen: show the button only where the browser supports it.
-  useEffect(() => {
-    const video = videoRef.current
-    setCanFullscreen(
-      Boolean(
-        document.fullscreenEnabled ||
-          document.webkitFullscreenEnabled ||
-          (video && video.webkitEnterFullscreen)
-      )
-    )
-    const onChange = () =>
-      setFullscreen(
-        Boolean(document.fullscreenElement || document.webkitFullscreenElement)
-      )
-    document.addEventListener('fullscreenchange', onChange)
-    document.addEventListener('webkitfullscreenchange', onChange)
-    return () => {
-      document.removeEventListener('fullscreenchange', onChange)
-      document.removeEventListener('webkitfullscreenchange', onChange)
-    }
-  }, [hero.ready, videoKey])
-
   const togglePlay = () => {
     const video = videoRef.current
     if (!video) return
@@ -232,80 +155,15 @@ export default function Hero() {
     video.muted = !video.muted
   }
 
-  const onVolumeInput = (event) => {
-    const video = videoRef.current
-    if (!video) return
-    const next = Number(event.target.value)
-    video.volume = next
-    video.muted = next === 0
-  }
-
-  const onSeek = (event) => {
-    const video = videoRef.current
-    if (!video) return
-    const next = Number(event.target.value)
-    video.currentTime = next
-    setTime(next)
-    setEnded(false)
-  }
-
-  const toggleFullscreen = () => {
-    const section = sectionRef.current
-    const video = videoRef.current
-    if (!section || !video) return
-    if (document.fullscreenElement || document.webkitFullscreenElement) {
-      if (document.exitFullscreen) document.exitFullscreen()
-      else if (document.webkitExitFullscreen) document.webkitExitFullscreen()
-      return
-    }
-    // Fullscreen the whole hero so the controls come along. iPhones can only
-    // fullscreen the video itself.
-    if (section.requestFullscreen) section.requestFullscreen().catch(() => {})
-    else if (section.webkitRequestFullscreen) section.webkitRequestFullscreen()
-    else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen()
-  }
-
-  // Clicking or tapping the picture plays or pauses, like a normal video
-  // player. On touch screens, the first tap only brings the controls back.
-  const onSurfaceClick = () => {
-    if (pointerTypeRef.current !== 'mouse' && !controlsShown) {
-      showUi()
-      return
-    }
-    togglePlay()
-    showUi()
-  }
-
-  const syncVolume = (event) => {
-    setMuted(event.currentTarget.muted)
-    setVolume(event.currentTarget.volume)
-  }
-
-  const progress = duration ? Math.min(time / duration, 1) : 0
-  const shownVolume = muted ? 0 : volume
-  const playLabel = ended ? 'Replay video' : playing ? 'Pause video' : 'Play video'
+  const playLabel = ended ? 'Replay video' : playing ? 'Stop video' : 'Play video'
   const playIcon = ended ? 'replay' : playing ? 'pause' : 'play'
-
-  const classes = [
-    'section',
-    'hero',
-    band ? 'hero--band' : '',
-    controlsShown ? 'hero--ui' : '',
-    playing && !controlsShown ? 'hero--idle' : '',
-  ]
-    .filter(Boolean)
-    .join(' ')
 
   return (
     <section
       id="hero"
       ref={sectionRef}
-      className={classes}
+      className={`section hero${band ? ' hero--band' : ''}`}
       aria-label="Ombre"
-      onPointerMove={showUi}
-      onPointerDown={(event) => {
-        pointerTypeRef.current = event.pointerType
-      }}
     >
       <h1 className="sr-only">Ombre. An AI workspace that works with you.</h1>
 
@@ -325,22 +183,14 @@ export default function Hero() {
             aria-hidden="true"
             onPlay={() => {
               setPlaying(true)
-              setStopped(false)
               setEnded(false)
             }}
-            onPause={() => {
-              setPlaying(false)
-              setStopped(true)
-            }}
+            onPause={() => setPlaying(false)}
             onEnded={() => {
               setPlaying(false)
               setEnded(true)
-              setStopped(true)
             }}
-            onTimeUpdate={(event) => setTime(event.currentTarget.currentTime)}
-            onLoadedMetadata={(event) => setDuration(event.currentTarget.duration)}
-            onDurationChange={(event) => setDuration(event.currentTarget.duration)}
-            onVolumeChange={syncVolume}
+            onVolumeChange={(event) => setMuted(event.currentTarget.muted)}
           >
             {portrait ? (
               mobileSrc && <source src={mobileSrc} type="video/mp4" />
@@ -360,100 +210,28 @@ export default function Hero() {
 
       <div className="hero__fade" aria-hidden="true" />
 
+      {/* Two small buttons, always in place: stop/play in the bottom left
+          corner, sound on/off in the bottom right corner. */}
       {hero.ready && (
         <>
-          {/* Click or tap anywhere on the picture to play or pause. */}
-          <div
-            className="hero__surface"
-            onClick={onSurfaceClick}
-            aria-hidden="true"
-          />
-
-          {/* Large play button when the video is paused, ended or blocked. */}
-          {stopped && !playing && (
-            <button
-              type="button"
-              className="hero__center liquid-glass"
-              onClick={togglePlay}
-              aria-label={playLabel}
-            >
-              <Icon name={playIcon} />
-            </button>
-          )}
-
-          <div
-            className="hero__ui"
-            role="group"
-            aria-label="Video controls"
+          <button
+            type="button"
+            className="hero__corner hero__corner--left liquid-glass"
+            onClick={togglePlay}
+            aria-label={playLabel}
           >
-            <div className="hero__progress" style={{ '--p': progress }}>
-              <span className="hero__track" aria-hidden="true" />
-              <span className="hero__played" aria-hidden="true" />
-              <input
-                type="range"
-                className="hero__seek"
-                min="0"
-                max={duration || 0}
-                step="0.05"
-                value={Math.min(time, duration || 0)}
-                onChange={onSeek}
-                disabled={!duration}
-                aria-label="Seek"
-                aria-valuetext={`${formatTime(time)} of ${formatTime(duration)}`}
-              />
-            </div>
+            <Icon name={playIcon} />
+          </button>
 
-            <div className="hero__row">
-              <button
-                type="button"
-                className="hero__btn"
-                onClick={togglePlay}
-                aria-label={playLabel}
-              >
-                <Icon name={playIcon} />
-              </button>
-
-              <div className="hero__volume-group">
-                <button
-                  type="button"
-                  className="hero__btn"
-                  onClick={toggleMute}
-                  aria-label={muted ? 'Turn sound on' : 'Mute'}
-                  aria-pressed={!muted}
-                >
-                  <Icon name={muted ? 'muted' : 'volume'} />
-                </button>
-                <input
-                  type="range"
-                  className="hero__volume"
-                  min="0"
-                  max="1"
-                  step="0.05"
-                  value={shownVolume}
-                  onChange={onVolumeInput}
-                  aria-label="Volume"
-                  aria-valuetext={`${Math.round(shownVolume * 100)} percent`}
-                />
-              </div>
-
-              <span className="hero__time">
-                {formatTime(time)} / {formatTime(duration)}
-              </span>
-
-              <span className="hero__spacer" />
-
-              {canFullscreen && (
-                <button
-                  type="button"
-                  className="hero__btn"
-                  onClick={toggleFullscreen}
-                  aria-label={fullscreen ? 'Exit full screen' : 'Full screen'}
-                >
-                  <Icon name={fullscreen ? 'exit-fullscreen' : 'fullscreen'} />
-                </button>
-              )}
-            </div>
-          </div>
+          <button
+            type="button"
+            className="hero__corner hero__corner--right liquid-glass"
+            onClick={toggleMute}
+            aria-label={muted ? 'Turn sound on' : 'Mute'}
+            aria-pressed={!muted}
+          >
+            <Icon name={muted ? 'muted' : 'volume'} />
+          </button>
         </>
       )}
     </section>
