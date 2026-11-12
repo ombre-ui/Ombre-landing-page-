@@ -208,6 +208,10 @@ export default function Hero() {
         )}
       </div>
 
+      {/* Soft blends: the top of the picture melts into the black above it,
+          and the bottom melts into the page below, so it all feels like one
+          continuous movement. */}
+      <div className="hero__fade-top" aria-hidden="true" />
       <div className="hero__fade" aria-hidden="true" />
 
       {/* Two small buttons, always in place: stop/play in the bottom left

@@ -3,7 +3,8 @@
 
    The hero sits on pure black because the video's own edges are black
    (#000). That black exists only behind the video and is not a palette
-   color. The bottom edge fades into the page charcoal so there is no seam. */
+   color. The top of the picture melts into that black, and the bottom
+   fades into the page charcoal, so there is no seam on either side. */
 .hero {
   /* A tiny strip of black above the video, as breathing space */
   --hero-gap: clamp(0.4rem, 1vw, 0.75rem);
@@ -42,6 +43,27 @@
   object-position: center;
 }
 
+/* Top blend: black over the very top of the picture, easing to clear, so
+   the picture appears out of the gap instead of starting at a hard edge. */
+.hero__fade-top {
+  position: absolute;
+  top: var(--hero-gap);
+  left: 0;
+  right: 0;
+  height: clamp(2rem, 11vh, 6rem);
+  background: linear-gradient(
+    to bottom,
+    rgb(0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.82) 20%,
+    rgba(0, 0, 0, 0.5) 45%,
+    rgba(0, 0, 0, 0.2) 70%,
+    rgba(0, 0, 0, 0.05) 88%,
+    rgba(0, 0, 0, 0) 100%
+  );
+  pointer-events: none;
+}
+
+/* Bottom blend into the page charcoal */
 .hero__fade {
   position: absolute;
   left: 0;
@@ -56,7 +78,12 @@
   pointer-events: none;
 }
 
-/* On the band the blend stays thin, so it never dims the picture itself */
+/* On the band the blends stay thin, so they never swallow the picture */
+.hero--band .hero__fade-top {
+  height: 8%;
+  min-height: 1.25rem;
+}
+
 .hero--band .hero__fade {
   height: 8%;
   min-height: 1.25rem;
