@@ -50,7 +50,7 @@
   top: var(--hero-gap);
   left: 0;
   right: 0;
-  height: clamp(2rem, 11vh, 6rem);
+  height: clamp(3rem, 15vh, 8rem);
   background: linear-gradient(
     to bottom,
     rgb(0, 0, 0) 0%,
@@ -78,10 +78,10 @@
   pointer-events: none;
 }
 
-/* On the band the blends stay thin, so they never swallow the picture */
+/* On the band the blends stay modest, so they never swallow the picture */
 .hero--band .hero__fade-top {
-  height: 8%;
-  min-height: 1.25rem;
+  height: 13%;
+  min-height: 2rem;
 }
 
 .hero--band .hero__fade {
