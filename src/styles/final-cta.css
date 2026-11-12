@@ -1,13 +1,13 @@
 /* Final CTA: the section is exactly the image's shape, so the text can be
    placed on the wall with percentages and stays there at every size.
 
-   Wall centre (from the images):
-     desktop  about 67% across, 40% down
-     phones   about 40% across, 35% down
+   Wall centre (from the images), nudged slightly down and right:
+     desktop  about 68.5% across, 43% down
+     phones   about 41.5% across, 38% down
    Adjust --text-x / --text-y to nudge the text. */
 .final-cta {
-  --text-x: 67%;
-  --text-y: 40%;
+  --text-x: 68.5%;
+  --text-y: 43%;
 
   position: relative;
   width: 100%;
@@ -146,8 +146,8 @@
 
 @media (max-width: 47.99rem) {
   .final-cta {
-    --text-x: 40%;
-    --text-y: 35%;
+    --text-x: 41.5%;
+    --text-y: 38%;
 
     aspect-ratio: var(--ratio-mobile);
   }
