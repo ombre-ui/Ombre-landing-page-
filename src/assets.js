@@ -70,10 +70,11 @@ export const assets = {
     ratioMobile: '1388 / 1736',
   },
 
-  // Logo with a transparent background (for dark backgrounds only), used in
-  // the footer. 715 x 710 pixels.
+  // Footer logo. Switched off for now: the cut-out showed a faint box on
+  // the glass, so the footer uses the text "ombre" until the clean ring
+  // mark (ombre-mark-transparent.png) is uploaded.
   logo: {
-    ready: true,
+    ready: false,
     src: logo,
     alt: 'Ombre',
     width: 715,
