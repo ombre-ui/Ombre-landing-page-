@@ -18,22 +18,24 @@ import handoffWeb from '../ombre-handoff-web.webp'
 import ctaWeb from '../ombre-cta-web.webp'
 import ctaMobile from '../ombre-cta-mobile.webp'
 import heroVideo from '../ombre_hero_v9_1080p_with_audio (1) (1).mp4'
+import heroPoster from '../ombre_hero_v9_poster.jpg'
+import logo from '../ombre-logo-transparent.png'
 
 export const assets = {
-  // 1. Hero video (20s, plays once, holds on the logo end frame).
-  // Only one file is uploaded so far (the 1080p MP4). It plays muted, so its
-  // audio track is never heard. Any file left as null is simply skipped:
+  // 1. Hero video (20s, plays once, then rests on its last frame).
+  // Only one video file is uploaded (the 1080p MP4). It plays muted until
+  // the visitor turns the sound on. Any file left as null is simply skipped:
   //   desktopWebm  smaller file for Chrome and Firefox (optional)
   //   mobileMp4    4:5 version for phones (optional; without it, phones see
   //                the 16:9 video as a band instead of a cropped screen)
-  //   poster       a still image for reduced motion (optional; without it,
-  //                the video parks on the frame at `holdFrameAt` seconds)
+  // The poster shows while the video loads, and for visitors with reduced
+  // motion or blocked autoplay.
   hero: {
     ready: true,
     desktopWebm: null,
     desktopMp4: heroVideo,
     mobileMp4: null,
-    poster: null,
+    poster: heroPoster,
     holdFrameAt: 3,
   },
 
@@ -66,5 +68,15 @@ export const assets = {
     alt: '',
     ratio: '2560 / 1085',
     ratioMobile: '1388 / 1736',
+  },
+
+  // Logo with a transparent background (for dark backgrounds only), used in
+  // the footer. 715 x 710 pixels.
+  logo: {
+    ready: true,
+    src: logo,
+    alt: 'Ombre',
+    width: 715,
+    height: 710,
   },
 }

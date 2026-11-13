@@ -1,0 +1,6 @@
+/* The footer logo: transparent background, so it sits straight on the glass. */
+.footer__logo {
+  display: block;
+  width: auto;
+  height: clamp(5.5rem, 9vw, 7.5rem);
+}

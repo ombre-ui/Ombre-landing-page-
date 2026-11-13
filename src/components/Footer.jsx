@@ -3,6 +3,7 @@ import { assets } from '../assets.js'
 import { SIGNUP_URL, SIGNIN_URL, CONTACT_EMAIL } from '../config.js'
 import '../styles/glass.css'
 import '../styles/footer.css'
+import '../styles/footer-logo.css'
 
 // Only links that go somewhere real are listed. Mentors and Projects have
 // no pages of their own.
@@ -35,7 +36,7 @@ const groups = [
 ]
 
 export default function Footer() {
-  const { finalCta } = assets
+  const { finalCta, logo } = assets
 
   // The glow behind the glass reuses the final CTA image (lamp area).
   const style = finalCta.ready
@@ -49,13 +50,25 @@ export default function Footer() {
       <Reveal className="footer__panel liquid-glass">
         <div className="footer__grid">
           <div className="footer__brand">
-            {/* When the logo PNG arrives, add an <img> here, before the wordmark. */}
+            {/* The logo (transparent background) links back to the top. */}
             <a
               className="footer__wordmark"
               href="#hero"
               aria-label="Ombre, back to top"
             >
-              ombre
+              {logo.ready ? (
+                <img
+                  className="footer__logo"
+                  src={logo.src}
+                  alt={logo.alt}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              ) : (
+                'ombre'
+              )}
             </a>
             <p className="footer__tagline">An AI workspace that works with you.</p>
           </div>
