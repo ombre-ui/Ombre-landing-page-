@@ -1,6 +1,17 @@
-/* The footer logo: transparent background, so it sits straight on the glass. */
+/* Footer brand: the small transparent ring, then the word "ombre". */
+.footer__wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
 .footer__logo {
   display: block;
+  flex: none;
   width: auto;
-  height: clamp(5.5rem, 9vw, 7.5rem);
+  height: 2.6rem;
+}
+
+.footer__wordmark-text {
+  line-height: 1;
 }

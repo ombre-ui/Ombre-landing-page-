@@ -19,7 +19,7 @@ import ctaWeb from '../ombre-cta-web.webp'
 import ctaMobile from '../ombre-cta-mobile.webp'
 import heroVideo from '../ombre_hero_v9_1080p_with_audio (1) (1).mp4'
 import heroPoster from '../ombre_hero_v9_poster.jpg'
-import logo from '../ombre-logo-transparent.png'
+import logoMark from '../ombre-mark-transparent.png'
 
 export const assets = {
   // 1. Hero video (20s, plays once, then rests on its last frame).
@@ -70,14 +70,14 @@ export const assets = {
     ratioMobile: '1388 / 1736',
   },
 
-  // Footer logo. Switched off for now: the cut-out showed a faint box on
-  // the glass, so the footer uses the text "ombre" until the clean ring
-  // mark (ombre-mark-transparent.png) is uploaded.
+  // Footer logo: the ring on a transparent background (dark backgrounds
+  // only). The word "ombre" next to it is live text, set in the footer.
+  // Decorative, because the word beside it already names the brand.
   logo: {
-    ready: false,
-    src: logo,
-    alt: 'Ombre',
-    width: 715,
-    height: 710,
+    ready: true,
+    src: logoMark,
+    alt: '',
+    width: 288,
+    height: 288,
   },
 }

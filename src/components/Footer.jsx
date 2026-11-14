@@ -50,25 +50,24 @@ export default function Footer() {
       <Reveal className="footer__panel liquid-glass">
         <div className="footer__grid">
           <div className="footer__brand">
-            {/* The logo (transparent background) links back to the top. */}
+            {/* The small ring (transparent background) with the word "ombre"
+                as live text beside it. Links back to the top. */}
             <a
               className="footer__wordmark"
               href="#hero"
               aria-label="Ombre, back to top"
             >
-              {logo.ready ? (
+              {logo.ready && (
                 <img
                   className="footer__logo"
                   src={logo.src}
                   alt={logo.alt}
                   width={logo.width}
                   height={logo.height}
-                  loading="lazy"
                   decoding="async"
                 />
-              ) : (
-                'ombre'
               )}
+              <span className="footer__wordmark-text">ombre</span>
             </a>
             <p className="footer__tagline">An AI workspace that works with you.</p>
           </div>
