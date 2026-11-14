@@ -1,9 +1,15 @@
 import Reveal from './Reveal.jsx'
+import Headline from './Headline.jsx'
 import { assets } from '../assets.js'
 import '../styles/vision.css'
 
 export default function Vision() {
   const { vision } = assets
+
+  // A blurred copy of the picture behind it, for the soft ambient glow.
+  const glow = vision.ready
+    ? { '--glow-image': `url("${vision.src}")` }
+    : undefined
 
   return (
     <section
@@ -11,17 +17,22 @@ export default function Vision() {
       className="section section--ivory blend-top blend-from-charcoal vision"
     >
       <div className="vision__text">
-        <Reveal as="h2" className="vision__headline">
-          AI should understand the work, not just the prompt.
-        </Reveal>
-        <Reveal as="p" delay={150} className="vision__support">
+        <Headline
+          as="h2"
+          className="vision__headline"
+          segments={[
+            'AI should understand the work,',
+            { text: 'not just the prompt.', em: true },
+          ]}
+        />
+        <Reveal as="p" delay={450} className="vision__support">
           Ombre brings intelligence, expertise, and context together, so you can
           keep moving without starting over.
         </Reveal>
       </div>
 
       {/* Image slot: empty until the asset is uploaded and marked ready */}
-      <Reveal className="vision__media">
+      <Reveal className="vision__media" style={glow}>
         <div
           className="vision__frame"
           style={{

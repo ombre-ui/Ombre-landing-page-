@@ -1,4 +1,5 @@
 import Reveal from './Reveal.jsx'
+import Headline from './Headline.jsx'
 import '../styles/workspace.css'
 
 const steps = [
@@ -29,12 +30,15 @@ export default function Workspace() {
       aria-labelledby="workspace-heading"
     >
       <div className="workspace__inner">
-        <Reveal as="h2" id="workspace-heading" className="workspace__headline">
-          <span className="workspace__line">One workspace.</span>
-          <span className="workspace__line">
-            Every direction your work takes.
-          </span>
-        </Reveal>
+        <Headline
+          as="h2"
+          id="workspace-heading"
+          className="workspace__headline"
+          segments={[
+            { text: 'One workspace.', block: true },
+            { text: 'Every direction your work takes.', em: true, block: true },
+          ]}
+        />
 
         <div className="workspace__rows">
           {steps.map((step, i) => (

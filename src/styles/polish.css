@@ -1,0 +1,265 @@
+/* Polish: depth, light and gentle motion layered over the base design.
+   Everything here is subtle, and calms down for reduced-motion visitors. */
+
+/* ---- 1. Film grain on the dark sections ------------------------------
+   A very light texture, like the grain in the photographs. It also keeps
+   dark gradients smooth, without visible banding. */
+.section--charcoal::after,
+.section--charcoal-soft::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* ---- 2. Quiet pools of light inside sections -------------------------- */
+.workspace {
+  background-image: radial-gradient(
+    55% 45% at 18% 28%,
+    rgba(200, 185, 154, 0.08),
+    rgba(200, 185, 154, 0) 70%
+  );
+}
+
+.faq {
+  background-image: radial-gradient(
+    50% 40% at 85% 22%,
+    rgba(200, 185, 154, 0.06),
+    rgba(200, 185, 154, 0) 70%
+  );
+}
+
+/* A soft navy tint, from the navy in the logo's ring */
+.handoff {
+  background-image: radial-gradient(
+    75% 50% at 50% 55%,
+    rgba(30, 36, 72, 0.36),
+    rgba(30, 36, 72, 0) 70%
+  );
+}
+
+/* A little warmth at the top of the key ivory sections */
+.vision,
+.philosophy {
+  background-image: radial-gradient(
+    90% 55% at 50% 0%,
+    rgba(200, 185, 154, 0.1),
+    rgba(200, 185, 154, 0) 70%
+  );
+}
+
+/* ---- 3. Ambient glow: images melt into their section ----------------
+   A blurred copy of the picture sits behind it, so the edges fade into
+   soft light instead of stopping at a hard line. */
+.vision__media,
+.handoff__media {
+  position: relative;
+  isolation: isolate;
+}
+
+.vision__media::before,
+.handoff__media::before {
+  content: '';
+  position: absolute;
+  inset: 8% 0 -6% 0;
+  z-index: -1;
+  background-image: var(--glow-image, none);
+  background-size: cover;
+  background-position: center;
+  filter: blur(52px) saturate(1.2);
+  opacity: 0;
+  transition: opacity 1600ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.vision__media.is-visible::before {
+  opacity: 0.3;
+}
+
+.handoff__media.is-visible::before {
+  opacity: 0.4;
+}
+
+@media (max-width: 47.99rem) {
+  .vision__media::before,
+  .handoff__media::before {
+    filter: blur(34px) saturate(1.2);
+  }
+}
+
+/* ---- 4. Dividers draw themselves in ---------------------------------- */
+.benefit {
+  position: relative;
+  border-top: 0;
+}
+
+.benefit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--line-on-light);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1200ms var(--ease-soft) 150ms;
+}
+
+.benefit.is-visible::before {
+  transform: scaleX(1);
+}
+
+.workspace__row {
+  position: relative;
+  border-top: 0;
+}
+
+.workspace__row::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--graphite-line);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1200ms var(--ease-soft) 150ms;
+}
+
+.workspace__row.is-visible::before {
+  transform: scaleX(1);
+}
+
+/* ---- 5. Slow drift and settle, where the browser supports it --------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Pictures drift a few percent as they pass through the screen */
+    .vision__frame picture {
+      height: 110%;
+      margin-top: -5%;
+      animation: ombre-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    .handoff__parallax {
+      height: 110%;
+      margin-top: -5%;
+      animation: ombre-drift linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    /* The final image eases in, from a little closer */
+    .final-cta__img {
+      animation: ombre-settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 55%;
+    }
+  }
+}
+
+.handoff__parallax {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes ombre-drift {
+  from {
+    transform: translateY(-4.5%);
+  }
+  to {
+    transform: translateY(4.5%);
+  }
+}
+
+@keyframes ombre-settle {
+  from {
+    transform: scale(1.08);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* ---- 6. The engraved link glows softly, once ------------------------ */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal.is-visible .final-cta__link {
+    animation: ombre-glow 2600ms var(--ease-soft) 1100ms 1 backwards;
+  }
+}
+
+@keyframes ombre-glow {
+  0%,
+  100% {
+    text-shadow:
+      0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 1px 0 rgba(255, 255, 255, 0.12),
+      0 0 0 rgba(200, 185, 154, 0);
+  }
+  45% {
+    text-shadow:
+      0 -1px 0 rgba(0, 0, 0, 0.6),
+      0 1px 0 rgba(255, 255, 255, 0.18),
+      0 0 34px rgba(200, 185, 154, 0.45);
+  }
+}
+
+/* ---- 7. Gentler hover states ----------------------------------------- */
+.faq__question {
+  position: relative;
+}
+
+.faq__question > * {
+  position: relative;
+}
+
+.faq__question::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.75rem;
+  right: -0.75rem;
+  background: linear-gradient(
+    90deg,
+    rgba(200, 185, 154, 0.07),
+    rgba(200, 185, 154, 0) 75%
+  );
+  opacity: 0;
+  transition: opacity 400ms var(--ease-soft);
+  pointer-events: none;
+}
+
+.faq__question:hover::before,
+.faq__item[open] .faq__question::before {
+  opacity: 1;
+}
+
+.footer__link {
+  position: relative;
+  display: inline-block;
+}
+
+.footer__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 450ms var(--ease-soft);
+}
+
+.footer__link:hover::after,
+.footer__link:focus-visible::after {
+  transform: scaleX(1);
+}

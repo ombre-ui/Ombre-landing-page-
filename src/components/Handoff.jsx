@@ -1,9 +1,15 @@
 import Reveal from './Reveal.jsx'
+import Headline from './Headline.jsx'
 import { assets } from '../assets.js'
 import '../styles/handoff.css'
 
 export default function Handoff() {
   const { handoff } = assets
+
+  // A blurred copy of the picture behind it, for the soft ambient glow.
+  const glow = handoff.ready
+    ? { '--glow-image': `url("${handoff.src}")` }
+    : undefined
 
   return (
     <section
@@ -12,21 +18,26 @@ export default function Handoff() {
       aria-labelledby="handoff-heading"
     >
       <div className="handoff__inner">
-        <Reveal as="h2" id="handoff-heading" className="handoff__headline">
-          Different Mentor. Same project. No starting over.
-        </Reveal>
+        <Headline
+          as="h2"
+          id="handoff-heading"
+          className="handoff__headline"
+          segments={['Different Mentor. Same project. No starting over.']}
+        />
 
         {/* Image slot: empty until the asset is uploaded and marked ready */}
-        <Reveal className="handoff__media">
+        <Reveal className="handoff__media" style={glow}>
           <div className="handoff__frame" style={{ aspectRatio: handoff.ratio }}>
             {handoff.ready && handoff.src && (
-              <img
-                className="handoff__img"
-                src={handoff.src}
-                alt={handoff.alt}
-                loading="lazy"
-                decoding="async"
-              />
+              <div className="handoff__parallax">
+                <img
+                  className="handoff__img"
+                  src={handoff.src}
+                  alt={handoff.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
             )}
           </div>
         </Reveal>

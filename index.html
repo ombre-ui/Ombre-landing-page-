@@ -52,6 +52,20 @@
       content="https://ombre-landing-page.vercel.app/ombre-share.jpg"
     />
 
+    <!-- If scripts are off, show everything instead of leaving content hidden
+         waiting to fade in. -->
+    <noscript>
+      <style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .headline__word {
+          transform: none !important;
+        }
+      </style>
+    </noscript>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

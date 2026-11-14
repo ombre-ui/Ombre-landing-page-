@@ -13,6 +13,8 @@ import Philosophy from './components/Philosophy.jsx'
 import FinalCta from './components/FinalCta.jsx'
 import Faq from './components/Faq.jsx'
 import Footer from './components/Footer.jsx'
+// Loaded last, so its light, texture and motion layer over everything above.
+import './styles/polish.css'
 
 export default function App() {
   return (

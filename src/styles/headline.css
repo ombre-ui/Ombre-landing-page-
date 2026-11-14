@@ -1,0 +1,39 @@
+/* Headline words rise out of an invisible mask, one after another. */
+.headline__mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  /* Room for descenders and italic overhang, so nothing is clipped */
+  padding: 0.12em 0.08em;
+  margin: -0.12em -0.08em;
+}
+
+.headline__word {
+  display: inline-block;
+  transform: translateY(130%);
+  transition: transform 1100ms var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * 70ms);
+  will-change: transform;
+}
+
+.headline.is-visible .headline__word {
+  transform: none;
+}
+
+.headline__line {
+  display: block;
+}
+
+/* Italic accent words: champagne on dark, bronze on ivory */
+.headline__em {
+  font-style: italic;
+}
+
+.section--ivory .headline__em {
+  color: var(--bronze);
+}
+
+.section--charcoal .headline__em,
+.section--charcoal-soft .headline__em {
+  color: var(--champagne);
+}
