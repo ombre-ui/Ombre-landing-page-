@@ -1,22 +1,21 @@
 import Reveal from './Reveal.jsx'
+import Headline from './Headline.jsx'
 import ExploreLink from './ExploreLink.jsx'
 import '../styles/closing.css'
 
 export default function Closing() {
   return (
     <section id="closing" className="section section--ivory closing">
-      <Reveal>
-        <p className="closing__statement">
-          <span className="closing__line">
-            Your work is bigger than a single conversation.
-          </span>
-          <span className="closing__line closing__line--italic">
-            Ombre is built to work with it.
-          </span>
-        </p>
-      </Reveal>
+      <Headline
+        as="h2"
+        className="closing__statement"
+        segments={[
+          { text: 'Your work is bigger than a single conversation.', block: true },
+          { text: 'Ombre is built to work with it.', em: true, block: true },
+        ]}
+      />
 
-      <Reveal delay={200} className="closing__cta">
+      <Reveal delay={500} className="closing__cta">
         <ExploreLink tone="light" />
       </Reveal>
     </section>

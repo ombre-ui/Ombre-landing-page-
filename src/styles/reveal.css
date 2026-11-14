@@ -1,8 +1,9 @@
-/* Gentle fade-in with a small upward drift.
-   Timing comes from the tokens; reduced motion is handled in global.css. */
+/* Blocks come into view with a gentle fade, a short rise and a hint of
+   scale. Timing comes from the motion tokens. */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
+  transform: translateY(var(--reveal-distance))
+    scale(var(--reveal-scale));
   transition:
     opacity var(--duration-reveal) var(--ease-soft),
     transform var(--duration-reveal) var(--ease-soft);

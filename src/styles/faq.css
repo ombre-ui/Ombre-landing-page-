@@ -1,4 +1,5 @@
-/* FAQ: quiet rows on charcoal, one open at a time. */
+/* FAQ: quiet rows on charcoal. One answer opens at a time, with a smooth
+   unfolding: the row grows, and the answer fades up into place. */
 .faq {
   padding: var(--section-space) 1.5rem;
 }
@@ -27,23 +28,28 @@
   border-top: 1px solid var(--graphite-line);
 }
 
+.faq__row {
+  margin: 0;
+  font: inherit;
+}
+
 .faq__question {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+  width: 100%;
   padding: 1.6rem 0;
-  list-style: none;
+  border: 0;
+  background: none;
+  text-align: left;
   cursor: pointer;
+  font-family: inherit;
   font-weight: 500;
   font-size: clamp(1.1rem, 1.8vw, 1.35rem);
   line-height: 1.4;
   color: var(--text-on-dark);
-  transition: color 400ms var(--ease-soft);
-}
-
-.faq__question::-webkit-details-marker {
-  display: none;
+  transition: color var(--duration-fast) var(--ease-soft);
 }
 
 .faq__question:hover {
@@ -73,20 +79,55 @@
   height: 1px;
   background: var(--champagne);
   transform: translateY(-50%);
-  transition: transform 500ms var(--ease-soft);
+  transition: transform var(--duration-base) var(--ease-soft);
 }
 
 .faq__icon::after {
   transform: translateY(-50%) rotate(90deg);
 }
 
-.faq__item[open] .faq__icon::after {
+.faq__item[data-open='true'] .faq__icon::after {
   transform: translateY(-50%) rotate(0deg);
+}
+
+/* The panel grows from nothing to its natural height */
+.faq__panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--duration-base) var(--ease-soft);
+}
+
+.faq__item[data-open='true'] .faq__panel {
+  grid-template-rows: 1fr;
+}
+
+/* While closed, the answer is hidden from keyboards and screen readers too */
+.faq__panel-inner {
+  min-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  transition: visibility 0s linear var(--duration-base);
+}
+
+.faq__item[data-open='true'] .faq__panel-inner {
+  visibility: visible;
+  transition-delay: 0s;
 }
 
 .faq__answer {
   max-width: 40rem;
   padding: 0 0 1.9rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--duration-base) var(--ease-soft),
+    transform var(--duration-base) var(--ease-soft);
+}
+
+.faq__item[data-open='true'] .faq__answer {
+  opacity: 1;
+  transform: none;
+  transition-delay: 120ms;
 }
 
 .faq__answer p {
@@ -94,21 +135,6 @@
   font-size: clamp(1.05rem, 1.5vw, 1.15rem);
   line-height: 1.75;
   color: var(--text-on-dark);
-}
-
-.faq__item[open] .faq__answer {
-  animation: faq-in 600ms var(--ease-soft);
-}
-
-@keyframes faq-in {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* Desktop: heading on the left, questions on the right */
@@ -122,5 +148,13 @@
     position: sticky;
     top: 3rem;
     align-self: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq__panel,
+  .faq__panel-inner,
+  .faq__answer {
+    transition: none !important;
   }
 }

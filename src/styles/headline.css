@@ -11,8 +11,8 @@
 .headline__word {
   display: inline-block;
   transform: translateY(130%);
-  transition: transform 1100ms var(--ease-soft);
-  transition-delay: calc(var(--i, 0) * 70ms);
+  transition: transform var(--duration-slow) var(--ease-soft);
+  transition-delay: calc(var(--i, 0) * var(--stagger));
   will-change: transform;
 }
 

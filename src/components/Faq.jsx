@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Reveal from './Reveal.jsx'
 import '../styles/faq.css'
 
@@ -44,10 +45,12 @@ const structuredData = {
   })),
 }
 
-// Each question is a native expandable element: keyboard and screen reader
-// friendly, no extra scripting. In current browsers, opening one closes the
-// others (they share the name "faq").
+// An accordion: each question is a button that unfolds its answer, with one
+// open at a time. The answers stay in the page for search engines, and a
+// closed answer is hidden from keyboards and screen readers.
 export default function Faq() {
+  const [open, setOpen] = useState(null)
+
   return (
     <section
       id="faq"
@@ -65,19 +68,40 @@ export default function Faq() {
         </Reveal>
 
         <div className="faq__list">
-          {questions.map((item, i) => (
-            <Reveal key={item.q} delay={i * 60}>
-              <details className="faq__item" name="faq">
-                <summary className="faq__question">
-                  <span>{item.q}</span>
-                  <span className="faq__icon" aria-hidden="true" />
-                </summary>
-                <div className="faq__answer">
-                  <p>{item.a}</p>
+          {questions.map((item, i) => {
+            const isOpen = open === i
+            return (
+              <Reveal key={item.q} delay={i * 60}>
+                <div className="faq__item" data-open={isOpen}>
+                  <h3 className="faq__row">
+                    <button
+                      type="button"
+                      className="faq__question"
+                      id={`faq-question-${i}`}
+                      aria-expanded={isOpen}
+                      aria-controls={`faq-answer-${i}`}
+                      onClick={() => setOpen(isOpen ? null : i)}
+                    >
+                      <span>{item.q}</span>
+                      <span className="faq__icon" aria-hidden="true" />
+                    </button>
+                  </h3>
+                  <div
+                    className="faq__panel"
+                    id={`faq-answer-${i}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${i}`}
+                  >
+                    <div className="faq__panel-inner">
+                      <div className="faq__answer">
+                        <p>{item.a}</p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </details>
-            </Reveal>
-          ))}
+              </Reveal>
+            )
+          })}
         </div>
       </div>
     </section>

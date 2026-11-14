@@ -1,4 +1,4 @@
-/* Ombre design tokens: confirmed palette and type system */
+/* Ombre design tokens: confirmed palette, type and motion system */
 :root {
   /* Dark surfaces */
   --charcoal: #11110f; /* primary background */
@@ -26,9 +26,17 @@
   --font-sans: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
 
-  /* Motion: slow and soft */
+  /* Motion: restrained and cinematic. Opacity, a short rise and a hint of
+     scale; slow, soft easing; nothing that bounces or flashes. */
   --ease-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
-  --duration-reveal: 900ms;
+  --duration-fast: 300ms; /* hovers and colour changes */
+  --duration-base: 600ms; /* accordion and small reveals */
+  --duration-reveal: 900ms; /* text and blocks coming into view */
+  --duration-slow: 1200ms; /* headlines and drawn lines */
+  --duration-image: 1600ms; /* pictures coming into view */
+  --stagger: 70ms; /* delay between words */
+  --reveal-distance: 16px;
+  --reveal-scale: 0.985;
 
   /* Layout */
   --content-width: 72rem;

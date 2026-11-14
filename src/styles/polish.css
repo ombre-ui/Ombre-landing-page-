@@ -70,7 +70,7 @@
   background-position: center;
   filter: blur(52px) saturate(1.2);
   opacity: 0;
-  transition: opacity 1600ms var(--ease-soft);
+  transition: opacity var(--duration-image) var(--ease-soft);
   pointer-events: none;
 }
 
@@ -105,7 +105,7 @@
   background: var(--line-on-light);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1200ms var(--ease-soft) 150ms;
+  transition: transform var(--duration-slow) var(--ease-soft) 150ms;
 }
 
 .benefit.is-visible::before {
@@ -127,14 +127,14 @@
   background: var(--graphite-line);
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 1200ms var(--ease-soft) 150ms;
+  transition: transform var(--duration-slow) var(--ease-soft) 150ms;
 }
 
 .workspace__row.is-visible::before {
   transform: scaleX(1);
 }
 
-/* ---- 5. Slow drift and settle, where the browser supports it --------- */
+/* ---- 5. Minimal parallax and a slow settle, where supported ---------- */
 @media (prefers-reduced-motion: no-preference) {
   @supports (animation-timeline: view()) {
     /* Pictures drift a few percent as they pass through the screen */
@@ -186,30 +186,7 @@
   }
 }
 
-/* ---- 6. The engraved link glows softly, once ------------------------ */
-@media (prefers-reduced-motion: no-preference) {
-  .reveal.is-visible .final-cta__link {
-    animation: ombre-glow 2600ms var(--ease-soft) 1100ms 1 backwards;
-  }
-}
-
-@keyframes ombre-glow {
-  0%,
-  100% {
-    text-shadow:
-      0 -1px 0 rgba(0, 0, 0, 0.6),
-      0 1px 0 rgba(255, 255, 255, 0.12),
-      0 0 0 rgba(200, 185, 154, 0);
-  }
-  45% {
-    text-shadow:
-      0 -1px 0 rgba(0, 0, 0, 0.6),
-      0 1px 0 rgba(255, 255, 255, 0.18),
-      0 0 34px rgba(200, 185, 154, 0.45);
-  }
-}
-
-/* ---- 7. Gentler hover states ----------------------------------------- */
+/* ---- 6. Gentler hover states ----------------------------------------- */
 .faq__question {
   position: relative;
 }
@@ -231,12 +208,12 @@
     rgba(200, 185, 154, 0) 75%
   );
   opacity: 0;
-  transition: opacity 400ms var(--ease-soft);
+  transition: opacity var(--duration-fast) var(--ease-soft);
   pointer-events: none;
 }
 
 .faq__question:hover::before,
-.faq__item[open] .faq__question::before {
+.faq__item[data-open='true'] .faq__question::before {
   opacity: 1;
 }
 
@@ -256,10 +233,39 @@
   opacity: 0.55;
   transform: scaleX(0);
   transform-origin: left;
-  transition: transform 450ms var(--ease-soft);
+  transition: transform var(--duration-base) var(--ease-soft);
 }
 
 .footer__link:hover::after,
 .footer__link:focus-visible::after {
   transform: scaleX(1);
+}
+
+/* ---- 7. Reduced motion: no hidden starting states ---------------------
+   Visitors who ask for less motion see every block and headline already in
+   place, with no fades, drifts or reveals. */
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .headline__word {
+    transform: none !important;
+  }
+
+  .benefit::before,
+  .workspace__row::before {
+    transform: scaleX(1) !important;
+  }
+
+  .vision__media::before,
+  .handoff__media::before {
+    opacity: 0.3 !important;
+  }
+
+  .vision__img,
+  .handoff__img {
+    transform: none !important;
+  }
 }
