@@ -8,6 +8,11 @@
     />
     <meta name="theme-color" content="#11110F" />
 
+    <!-- Browser tab and home-screen icons. Both use the existing Ombre ring
+         mark; Vite bundles it and fills in the final address. -->
+    <link rel="icon" type="image/png" href="/ombre-mark-transparent.png" />
+    <link rel="apple-touch-icon" href="/ombre-mark-transparent.png" />
+
     <!-- TEMPORARY: keeps search engines from listing this unfinished page.
          Remove this tag, and the X-Robots-Tag header in vercel.json, when
          the product launches. See LAUNCH-CHECKLIST.md. -->
@@ -22,7 +27,8 @@
     <!-- Share previews (WhatsApp, LinkedIn, X and others).
          The addresses below use the current Vercel address. When a custom
          domain is attached, replace https://ombre-landing-page.vercel.app
-         with it in og:url, og:image and twitter:image. -->
+         with it in og:url and og:image. X reads the og: tags, so only the
+         card type is set for it. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Ombre" />
     <meta property="og:url" content="https://ombre-landing-page.vercel.app/" />
@@ -45,18 +51,6 @@
       content="The Ombre logo on a dark background"
     />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Ombre | An AI workspace that works with you"
-    />
-    <meta
-      name="twitter:description"
-      content="Ombre brings General AI, specialized Mentors, and Projects into one workspace, with context that carries from one step to the next."
-    />
-    <meta
-      name="twitter:image"
-      content="https://ombre-landing-page.vercel.app/ombre-share.jpg"
-    />
 
     <!-- If scripts are off, show everything instead of leaving content hidden
          waiting to fade in. -->

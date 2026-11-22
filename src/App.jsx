@@ -18,39 +18,42 @@ import './styles/polish.css'
 
 export default function App() {
   return (
-    <main>
-      {/* 1. Hero: video only, no nav, no overlay text */}
-      <Hero />
+    <>
+      <main>
+        {/* 1. Hero: video only, no nav, no overlay text */}
+        <Hero />
 
-      {/* 1b. Slim text link under the hero */}
-      <section id="explore" className="section section--charcoal explore">
-        <Reveal>
-          <ExploreLink />
-        </Reveal>
-      </section>
+        {/* 1b. Slim text link under the hero */}
+        <section id="explore" className="section section--charcoal explore">
+          <Reveal>
+            <ExploreLink />
+          </Reveal>
+        </section>
 
-      {/* 2. Vision, Benefits, Closing statement (ivory) */}
-      <Vision />
-      <Benefits />
-      <Closing />
+        {/* 2. Vision, Benefits, Closing statement (ivory) */}
+        <Vision />
+        <Benefits />
+        <Closing />
 
-      {/* 3. Workspace: typography only (charcoal) */}
-      <Workspace />
+        {/* 3. Workspace: typography only (charcoal) */}
+        <Workspace />
 
-      {/* 4. Mentor Handoff (soft charcoal) */}
-      <Handoff />
+        {/* 4. Mentor Handoff (soft charcoal) */}
+        <Handoff />
 
-      {/* 5. Philosophy: typography only (ivory) */}
-      <Philosophy />
+        {/* 5. Philosophy: typography only (ivory) */}
+        <Philosophy />
 
-      {/* 6. Final CTA: cinematic image with the engraved "Explore Ombre" */}
-      <FinalCta />
+        {/* 6. Final CTA: cinematic image with the engraved "Explore Ombre" */}
+        <FinalCta />
 
-      {/* 7. FAQ */}
-      <Faq />
+        {/* 7. FAQ */}
+        <Faq />
+      </main>
 
-      {/* 8. Footer: liquid glass panel */}
+      {/* 8. Footer: liquid glass panel. Outside <main>, so it is the page's
+          own footer landmark rather than part of the main content. */}
       <Footer />
-    </main>
+    </>
   )
 }

@@ -40,7 +40,11 @@ function rootFiles(files) {
 export default defineConfig({
   plugins: [
     react(),
-    rootFiles(['ombre-share.jpg', ['Custom 404.mp4', 'ombre-404.mp4']]),
+    rootFiles([
+      'ombre-share.jpg',
+      ['Custom 404.mp4', 'ombre-404.mp4'],
+      'robots.txt',
+    ]),
   ],
   build: {
     rollupOptions: {

@@ -1,0 +1,10 @@
+# Crawling is allowed on purpose. While the site is unfinished, search engines
+# are kept from listing it by the noindex meta tag and X-Robots-Tag header
+# (see LAUNCH-CHECKLIST.md). A Disallow rule here would stop crawlers from
+# ever seeing that noindex, so do not add one.
+#
+# When the production domain is set, add a line:
+#   Sitemap: https://<production-domain>/sitemap.xml
+
+User-agent: *
+Allow: /
