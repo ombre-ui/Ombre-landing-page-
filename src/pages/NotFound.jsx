@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import '../styles/notfound.css'
 
 // Self-hosted background loop. The file is "Custom 404.mp4" in the repo root;
@@ -25,10 +25,37 @@ function usePrefersReducedMotion() {
 export default function NotFound() {
   const reduced = usePrefersReducedMotion()
   const [playing, setPlaying] = useState(false)
+  const videoRef = useRef(null)
 
   useEffect(() => {
     document.title = 'Page not found | Ombre'
   }, [])
+
+  // Older phones decide whether a video may autoplay from the real `muted`
+  // HTML attribute, which React does not write (it only sets the property).
+  // So write the attribute ourselves, then ask the browser to play. If it
+  // refuses, nothing breaks: the video stays hidden and the page simply shows
+  // its calm base colour.
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) {
+      setPlaying(false)
+      return
+    }
+
+    video.defaultMuted = true
+    video.setAttribute('muted', '')
+    video.muted = true
+
+    // Already running (the 'playing' event may have fired before this ran).
+    if (!video.paused && video.readyState >= 3) setPlaying(true)
+
+    // Older browsers return nothing here instead of a promise.
+    const attempt = video.play()
+    if (attempt !== undefined && typeof attempt.catch === 'function') {
+      attempt.catch(() => {})
+    }
+  }, [reduced])
 
   return (
     <div className="notfound">
@@ -37,6 +64,7 @@ export default function NotFound() {
           blocks autoplay the page simply stays on the base colour. */}
       {!reduced && (
         <video
+          ref={videoRef}
           className={`notfound__video${playing ? ' is-playing' : ''}`}
           src={VIDEO_SRC}
           autoPlay
