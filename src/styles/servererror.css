@@ -1,0 +1,205 @@
+/* Custom 500: same warm charcoal as the 404, a quiet background image that
+   stays behind the message, and a slow reveal. */
+.servererror {
+  /* Easy-to-change colours. Everything on this page reads from these. */
+  --servererror-base: #14120f; /* page colour, behind everything */
+  --servererror-text: var(--ivory); /* headline and message */
+  --servererror-accent: var(--champagne); /* primary button, focus ring */
+  --servererror-accent-hover: var(--champagne-hover);
+  --servererror-on-accent: #14120f; /* text on the primary button */
+  --servererror-bg-opacity: 0.45; /* how present the background image is */
+  --servererror-veil: 0.55; /* how much the centre is darkened (0 to 1) */
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: 0 1.5rem;
+  overflow-x: hidden;
+  background: var(--servererror-base);
+  color: var(--servererror-text);
+}
+
+/* A little taller than the screen so the slow drift never shows an edge. */
+.servererror__bg {
+  position: absolute;
+  top: -24px;
+  bottom: -24px;
+  left: 0;
+  right: 0;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.servererror__img {
+  display: block;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  object-fit: cover;
+  opacity: var(--servererror-bg-opacity);
+}
+
+/* Keeps the middle calm so the message always reads clearly. */
+.servererror__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 45%,
+    color-mix(
+        in srgb,
+        var(--servererror-base) calc(var(--servererror-veil) * 100%),
+        transparent
+      )
+      0%,
+    color-mix(in srgb, var(--servererror-base) 25%, transparent) 100%
+  );
+}
+
+.servererror__header {
+  display: flex;
+  justify-content: center;
+  padding: max(2rem, env(safe-area-inset-top)) 0 0;
+}
+
+.servererror__wordmark {
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--servererror-text);
+}
+
+.servererror__main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 3rem 0 4rem;
+  text-align: center;
+}
+
+.servererror__code {
+  margin: 0;
+  padding-bottom: 0.08em; /* room so the numerals are never clipped */
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
+  font-size: clamp(7rem, 26vw, 15rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--servererror-text);
+  background: linear-gradient(
+    to bottom,
+    var(--servererror-text) 20%,
+    color-mix(in srgb, var(--servererror-text) 45%, transparent) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.servererror__rule {
+  width: min(100%, 12rem);
+  height: 1px;
+  margin: 1.5rem 0 2rem;
+  background: color-mix(in srgb, var(--servererror-accent) 60%, transparent);
+}
+
+.servererror__title {
+  margin: 0;
+  font-size: clamp(1.15rem, 3.5vw, 1.4rem);
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--servererror-text);
+}
+
+.servererror__sub {
+  margin: 0.6rem 0 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--servererror-text) 80%, transparent);
+}
+
+.servererror__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 2.25rem;
+}
+
+.servererror__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+  box-sizing: border-box; /* so the button and the link are the same height */
+  min-height: 2.75rem; /* comfortable tap size on phones */
+  padding: 0.6rem 1.4rem;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-soft),
+    color var(--duration-fast) var(--ease-soft),
+    border-color var(--duration-fast) var(--ease-soft);
+}
+
+.servererror__btn--primary {
+  background: var(--servererror-accent);
+  border-color: var(--servererror-accent);
+  color: var(--servererror-on-accent);
+}
+
+.servererror__btn--primary:hover {
+  background: var(--servererror-accent-hover);
+  border-color: var(--servererror-accent-hover);
+}
+
+.servererror__btn--ghost {
+  color: var(--servererror-accent);
+}
+
+.servererror__btn--ghost:hover {
+  color: var(--servererror-accent-hover);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.servererror__btn:focus-visible,
+.servererror__wordmark:focus-visible {
+  outline: 2px solid var(--servererror-accent);
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+@media (max-width: 30rem) {
+  .servererror__actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    max-width: 20rem;
+  }
+}
+
+/* Reduced motion: the page still works the same; the image just sits still.
+   (The component also skips every animation in this case.) */
+@media (prefers-reduced-motion: reduce) {
+  .servererror__btn {
+    transition: none;
+  }
+}

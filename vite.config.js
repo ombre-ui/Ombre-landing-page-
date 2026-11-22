@@ -44,11 +44,14 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
-      // Two pages: the landing page, and 404.html. Vercel serves 404.html with
-      // a real 404 status for any address that does not exist.
+      // Three pages: the landing page, 404.html and 500.html. Vercel serves
+      // 404.html with a real 404 status for any address that does not exist.
+      // 500.html is a separate page for server-error states; open it at
+      // /500.html.
       input: {
         main: 'index.html',
         notFound: '404.html',
+        serverError: '500.html',
       },
     },
   },
